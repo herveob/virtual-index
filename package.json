@@ -4,7 +4,7 @@
   "description": "create a virtual index.js for listed repositories",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,10 @@
   "homepage": "https://github.com/herveob/virtual-index#readme",
   "dependencies": {
     "upath": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-mocha": "^5.2.1",
+    "expect": "^24.0.0",
+    "mocha": "^5.2.0"
   }
 }
