@@ -1,21 +1,35 @@
 const fs      = require('fs');
 const path    = require('path');
+const upath   = require('upath');
 
 const virtualIndex = {};
 
 const expose = (repositories) => {
-  repositories.forEach(repository => {
+  repositories.forEach((repository) => {
+    const normalisedRepository = upath.normalize(repository);
     const files = fs.readdirSync(repository);
-    console.log('repository ==> ', repository);
-    const repositoryName = repository.match(/.*\/([A-Za-z-]+)/)[1];
 
+    let normalisedRepositoryName = '';
+
+    if(normalisedRepository.split('/') === 0) {
+      normalisedRepositoryName = normalisedRepository;
+    } else {
+      normalisedRepositoryName = normalisedRepository.split('/')[normalisedRepository.split('/').length - 1];
+    }
+    
     files.forEach((file) => {
-      if(fs.statSync(path.resolve(repositoryName, file)).isFile()) {
-        virtualIndex[repositoryName] = Object.assign({}, virtualIndex[repositoryName], require(path.resolve(repositoryName, file)));
+      if(fs.statSync(upath.join(normalisedRepository, file)).isFile()) {
+        virtualIndex[normalisedRepositoryName] = Object.assign(
+          {},
+          virtualIndex[normalisedRepository],
+          require(path.resolve(normalisedRepository, file))
+        );
       }
 
-      if(fs.statSync(path.resolve(repositoryName, file)).isDirectory()) {
-        expose([path.resolve(repositoryName, file)]); //FIXME POSIX problem
+      if(fs.statSync(path.resolve(normalisedRepository, file)).isDirectory()) {
+        const deepPath = upath.normalize(path.resolve(normalisedRepository, file));
+
+        expose([deepPath]);
       }
     });
 
