@@ -16,5 +16,7 @@
     "url": "https://github.com/herveob/virtual-index/issues"
   },
   "homepage": "https://github.com/herveob/virtual-index#readme",
-  "dependencies": {}
+  "dependencies": {
+    "upath": "^1.1.0"
+  }
 }
