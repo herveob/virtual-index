@@ -1,3 +1,5 @@
+'use strict';
+
 const fs      = require('fs');
 const path    = require('path');
 const upath   = require('upath');
@@ -21,7 +23,7 @@ const expose = (repositories) => {
       if(fs.statSync(upath.join(normalisedRepository, file)).isFile()) {
         virtualIndex[normalisedRepositoryName] = Object.assign(
           {},
-          virtualIndex[normalisedRepository],
+          virtualIndex[normalisedRepositoryName],
           require(path.resolve(normalisedRepository, file))
         );
       }
