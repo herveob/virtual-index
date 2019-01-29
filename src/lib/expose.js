@@ -1,40 +1,31 @@
-'use strict';
+'use strict'
 
-const fs      = require('fs');
-const upath   = require('upath');
+const fs = require('fs')
+const upath = require('upath')
 
-const virtualIndex = {};
+const expose = repositories => {
+  const exposeRepository = repository => {
+    const normalisedRepository = upath.normalize(repository)
+    const repositoryName = normalisedRepository.split('/').pop()
 
-const expose = (repositories) => {
-  repositories.forEach((repository) => {
-    const normalisedRepository = upath.normalize(repository);
-    const files = fs.readdirSync(repository);
+    return fs
+      .readdirSync(normalisedRepository)
+      .map(file => upath.join(normalisedRepository, file))
+      .reduce((acc, path) => {
+        if (fs.statSync(path).isFile()) {
+          acc[repositoryName] = { ...acc[repositoryName], ...require(path) }
+        }
+        if (fs.statSync(path).isDirectory()) {
+          acc[repositoryName] = { ...acc[repositoryName], ...exposeRepository(path) }
+        }
+        return acc
+      }, {})
+  }
 
-    let normalisedRepositoryName = '';
+  return repositories.reduce((virtualIndex, repository) => {
+    virtualIndex = { ...virtualIndex, ...exposeRepository(repository) }
+    return virtualIndex
+  }, {})
+}
 
-    if(normalisedRepository.split('/') === 0) {
-      normalisedRepositoryName = normalisedRepository;
-    } else {
-      normalisedRepositoryName = normalisedRepository.split('/')[normalisedRepository.split('/').length - 1];
-    }
-
-    files.forEach((file) => {
-      if(fs.statSync(upath.join(normalisedRepository, file)).isFile()) {
-        virtualIndex[normalisedRepositoryName] = Object.assign(
-          {},
-          virtualIndex[normalisedRepositoryName],
-          require(upath.join(normalisedRepository, file))
-        );
-      }
-
-      if(fs.statSync(upath.join(normalisedRepository, file)).isDirectory()) {
-        expose([upath.join(normalisedRepository, file)]);
-      }
-    });
-
-  });
-
-  return virtualIndex;
-};
-
-module.exports = expose;
+module.exports = expose
