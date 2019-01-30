@@ -1,3 +1,3 @@
-'use strict';
+'use strict'
 
-module.exports = require('./src/lib/expose');
+module.exports = require('./src/lib/expose')

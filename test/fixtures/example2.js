@@ -1,4 +1,4 @@
 module.exports = {
-  exemple2a: 'a2',
-  exemple2b: 'b2'
+  example2a: 'a2',
+  example2b: 'b2'
 };
