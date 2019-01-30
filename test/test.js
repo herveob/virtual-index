@@ -1,27 +1,51 @@
-const expect = require('expect');
 const path = require('path');
-const exposer = require('../index')([path.join(__dirname, 'fixtures')]);
 
-console.log(exposer);
+const expect = require('expect');
+const Joi    = require('joi');
+
+const exposer = require('../index')([path.join(__dirname, 'fixtures')]);
 
 describe('expose', () => {
   it('should return an object', () => {
-    expect(exposer).toHaveProperty('fixtures', {
-      'deep-example': {
-        'sub-deep-example': {
-          'sub-deep-example1': {
-            subDeepExample1a: 'sub_deep_a',
-            subDeepExample1b: 'sub_deep_b'
-          }
-        },
-        'deep-example1': {
-          deepExample1a: 'deep_a',
-          deepExample1b: 'deep_b'
-        }
-      },
-      example1: { example1a: 'a', example1b: 'b' },
-      example2: { example2a: 'a2', example2b: 'b2' },
-      example3: { example3a: 'a3', example3b: 'b3' }
+    const exampleModel = Joi.object().keys({
+      fixtures: Joi.object().keys({
+        'deep-example': Joi.object().keys({
+          'deep-example1': Joi.object().keys({
+            deepExample1a: Joi.string(),
+            deepExample1b: Joi.string()
+          }),
+          'sub-deep-example': Joi.object().keys({
+            'sub-deep-example1': Joi.object().keys({
+              subDeepExample1a: Joi.string(),
+              subDeepExample1b: Joi.string()
+            })
+          }),
+        }),
+        example1: Joi.object().keys({
+          example1a: Joi.string(),
+          example1b: Joi.string(),
+        }),
+        example2: Joi.object().keys({
+          example2a: Joi.string(),
+          example2b: Joi.string(),
+        }),
+        example3: Joi.object().keys({
+          example3a: Joi.string(),
+          example3b: Joi.string(),
+        }),
+        goodexample: Joi.object().keys({
+          goodexample1: Joi.object().keys({
+            getExample: Joi.required(),
+          }),
+          goodexample2: Joi.object().keys({
+            getFullName: Joi.required()
+          })
+        })
+      }),
     });
+
+    const validation = Joi.validate(exposer, exampleModel);
+
+    expect(validation.error).toBeNull();
   });
 });
