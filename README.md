@@ -24,12 +24,6 @@ Each **.js** files in this structure has it own sets of exports. The expected vi
 
 ```javascript
 {
-  'deep-example': {
-    'deep-example1': {
-      deepExemple1a: 'deep_a',
-      deepExemple1b: 'deep_b'
-    }
-  },
   fixtures: {
     example1: {
       exemple1a: 'a',
@@ -42,6 +36,12 @@ Each **.js** files in this structure has it own sets of exports. The expected vi
     example3: {
       exemple3a: 'a3',
       exemple3b: '3b'
+    },
+    'deep-example': {
+      'deep-example1': {
+        deepExemple1a: 'deep_a',
+        deepExemple1b: 'deep_b'
+      }
     }
   }
 }
@@ -50,6 +50,9 @@ Each **.js** files in this structure has it own sets of exports. The expected vi
 Poorly name choices were made to make a statement: **You shall name your directories and files correctly !!**
 
 ## Usage
+```javascript
+const virtualIndex = require('virtual-index')['/somedirectory','someotherdirectory'];
+```
 For now virtual-index in ment to be use as you want to, put it in a global varable, in your main file, or where ever you want. This choice will probably be implement as some kind of options in the future.
 
 ## TODO
