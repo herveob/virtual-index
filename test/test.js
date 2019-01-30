@@ -1,9 +1,7 @@
-const path = require('path');
-
 const expect = require('expect');
 const Joi    = require('joi');
 
-const exposer = require('../index')([path.join(__dirname, 'fixtures')]);
+const exposer = require('../index')(['./fixtures']);
 
 describe('expose', () => {
   it('should return an object', () => {

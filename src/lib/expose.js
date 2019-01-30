@@ -2,12 +2,20 @@
 
 const fs = require('fs');
 const upath = require('upath');
+const caller = require('caller');
+
 
 const removeExtension = fileName => fileName.replace(/\..*$/, '');
 
 const expose = repositories => {
+  const callerPath = upath.normalize(caller()).split('/');
+
+  callerPath.pop();
+
+  const callerRepository = callerPath.join('/');
+
   const exposeRepository = repository => {
-    const normalisedRepository = upath.normalize(repository);
+    const normalisedRepository = upath.join(callerRepository, repository.replace(callerRepository, ''));
     const repositoryName = normalisedRepository.split('/').pop();
 
     return fs
