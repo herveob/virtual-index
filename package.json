@@ -1,6 +1,6 @@
 {
   "name": "virtual-index",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "create a virtual index.js for listed repositories",
   "main": "index.js",
   "scripts": {
@@ -26,5 +26,6 @@
     "eslint-plugin-mocha": "^5.2.1",
     "expect": "^24.0.0",
     "mocha": "^5.2.0"
-  }
+  },
+  "keywords": ["virtual-index", "virtual", "index", "virtual index"]
 }
