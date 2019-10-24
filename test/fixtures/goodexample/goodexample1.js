@@ -1,3 +1,3 @@
 module.exports.getExample = (exampleValue) => {
-  return exampleValue;
+    return exampleValue;
 };

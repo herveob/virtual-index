@@ -1,34 +1,37 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "node": true
+  env: {
+    commonjs: true,
+    es6: true,
+    node: true
   },
-  "extends": "eslint:recommended",
-  "plugins": [
-    "mocha"
+  parser: "@typescript-eslint/parser",
+  extends: [
+      'plugin:@typescript-eslint/recommended',  // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+      "eslint:recommended",
   ],
-  "parserOptions": {
-    "ecmaVersion": 2018
+  parserOptions: {
+      ecmaVersion: 2018,  // Allows for the parsing of modern ECMAScript features
+      sourceType: 'module',  // Allows for the use of imports
   },
-  "rules": {
-    "mocha/no-exclusive-tests": "error",
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
+  rules: {
+      // "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/semi": ["error"],
+      "indent": [
+        "error",
+        4
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
   }
 };

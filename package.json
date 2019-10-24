@@ -4,8 +4,12 @@
   "description": "create a virtual index.js for listed repositories",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test:watch": "mocha -w"
+    "dev": "ts-node src/index.ts",
+    "jest:init": "jest --init",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prestart": "tsc",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,14 +22,22 @@
   },
   "homepage": "https://github.com/herveob/virtual-index#readme",
   "dependencies": {
-    "caller": "^1.0.1",
-    "joi": "^14.3.1",
-    "upath": "^1.1.0"
+    "typescript": "^3.6.4"
   },
   "devDependencies": {
-    "eslint-plugin-mocha": "^5.2.1",
-    "expect": "^24.0.0",
-    "mocha": "^5.2.0"
+    "@types/jest": "^24.0.19",
+    "@types/node": "^12.7.12",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "acorn": "^7.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "ts-node": "^8.4.1"
   },
-  "keywords": ["virtual-index", "virtual", "index", "virtual index"]
+  "keywords": [
+    "virtual-index",
+    "virtual",
+    "index",
+    "virtual index"
+  ]
 }
